@@ -1,52 +1,66 @@
--- numeric functions, dates
+-- aggregate function (To perform calculation on set of rows) multi line function
 
 use world;
 
-select lifeexpectancy, round( lifeexpectancy) from country;
+select count(*) from country; -- count
 
-select 83.62, round(83.68);
+select count(*), count(indepyear) from country; 
 
-select 83.62, round(83.687,2);
+select distinct(continent) from country;
 
-select (456.23), round(6.23, -1); -- 10
+select distinct continent, region from country;
 
-select (456.23), round(46.23, -1); -- 50
+select population from country;
 
-select (456.23), round(76.23, -2); -- 100
+select count(population) from country;
 
-select 456.23, round(456.23, 1), truncate(456.67,1); 
+select count(population), sum(population) from country;
 
-select 456.23, round(456.23, 1), truncate(456.67,1), mod(43,3); 
+select count(population), sum(population), avg(population) from country;
 
-select 456.23, round(456.23, 1), truncate(456.67,1), mod(43.6,3);
+select count(distinct governmentform) from country;
 
-select pow(2,3), ceil(3.000008),floor(3.999999);
+select governmentform from country where continent='Asia';
 
-select pow(2,3), ceil(3.000008),floor(3.999999);
+select count(governmentform) from country where continent='Asia';
+
+select count(governmentform),count(distinct governmentform) from country where continent='Asia';
+
+select sum(population) from country where continent='Africa';
+
+select count(name) ,sum(population) from country where continent='Africa';
+
+select count(name) ,sum(population),count(distinct indepyear) from country where continent='Africa';
 
 
+select * from country;
+-- get the totalcountry aveg surface area and total population for the country which has got the indep year from 1947 1998
+select population ,surfaceArea, indepyear from country where indepyear <> 1947 and 1998;
+
+select count(name), sum(population) ,avg(surfaceArea)from country where indepyear <> 1947 and 1998;
 
 
--- date
--- inbuilt date yh date and time print krna
+-- get the total num of country and no. of unique continents along with the avg population and total numbers of capitals fro the countries starting with A or D ?
+select * from country;
+select count(name),count(distinct continent), avg(population), sum(capital) from country where name like 'A%' or name like '%D' ;
 
-select now(), curdate(), current_timestamp(), current_time();
+select count(name) from country where continent = 'asia';
 
-select now(), adddate(now(),2); -- two days add and increase
+select continent, count(*) from country group by continet;
 
-select now(), adddate(now(),2), adddate(now(),interval -3 month);
+select indepyear from country group by indepyear;
 
-select now(), subdate(now(),2); -- two days decrease
+select indepyear, count(*) from country group by indepyear;
 
-select now(), subdate(now(),2), year(now() );
+select * from country;
 
-select now(), extract(week from nowa() );
+select governmentform , count(*) from country group by governmentform ;
 
-select now(), date_format(now() , 'Month is %M & year is %y ' );
+select governmentform , count(*) from country group by governmentform ;
 
-select  continent from country;
+select continent, count(name), sum(population),avg(population), min(population),max(population),min(indepyear), max(indepyear) from country group by continent;
 
-select distinct( continent) from country;
-
-select count(continent), count(distinct(continent)) from country; 
-
+-- from the city table you have to find the toatal cities , total district, unique district, toatal population from the city table;
+show tables;
+select * from city;
+select countrycode, count(*), count(district), count(distinct district)  ,sum(population) from city group by countrycode;
