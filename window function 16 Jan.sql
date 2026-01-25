@@ -45,6 +45,15 @@ select continent, sum(population)  from country group by continent;
 
 select code , name, continent , population, sum(population) over(partition by continent) from country;  -- divide  
 
+select code , name, continent , population, sum(population) over(partition by continent),max(population) over(partition by code) from country;  
+
+select code , name, continent , population, sum(population) over(partition by continent),
+max(population) over(partition by continent) from country;  
+
+select code , name, continent , region,  population, 
+sum(population) over(partition by continent),
+sum(population) over(partition by continent, region) from country;  
+
 select code , name, continent , population, sum(population) over(partition by code) from country; -- partition is apply on similar value
 
 
