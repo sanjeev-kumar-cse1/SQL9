@@ -1,0 +1,104 @@
+-- begin 
+--     DBMS_OUTPUT.PUT_LINE('hello');
+--     DBMS_OUTPUT.PUT_LINE('hello123');
+-- end;
+
+
+
+-- begin 
+--     DBMS_OUTPUT.PUT_LINE('hello' || '-' || 'sanjeev');
+--     DBMS_OUTPUT.PUT_LINE('hello123');
+-- end;
+
+
+-- DECLARE
+--     var int := 0;
+-- begin 
+--     DBMS_OUTPUT.PUT_LINE('hello' || '-' || var);
+--     DBMS_OUTPUT.PUT_LINE('hello123');
+-- end;
+
+
+
+-- if condition use for variable update
+-- DECLARE
+--     var int := 0;
+-- begin 
+--     var:=12;
+--     if (mod (var , 2 ) = 0) then
+--     DBMS_OUTPUT.PUT_LINE('hello' || '-' || var);
+--     else
+--     DBMS_OUTPUT.PUT_LINE('hello123');
+--     end if;
+-- end;
+
+
+
+-- DECLARE
+--     var int := 0;
+-- begin 
+--     var:=13;
+--     if (mod (var , 2 ) = 0) then
+--     DBMS_OUTPUT.PUT_LINE('hello' || '-' || var);
+--     else
+--     DBMS_OUTPUT.PUT_LINE('hello123');
+--     end if;
+-- end;
+
+
+-- Using LOOP while
+-- DECLARE
+--     var int := 0;
+-- begin
+--     while var <=3 loop
+--      DBMS_OUTPUT.PUT_LINE('Counter is: ' || var);
+--     var := var +1 ;
+--     end loop;
+
+-- end;
+
+
+
+-- select * from hr.EMPLOYEES;
+
+-- select * from hr.EMPLOYEES where EMPLOYEE_ID=100;
+
+-- BEGIN
+--     select * from hr.EMPLOYEES where EMPLOYEE_ID=101;
+-- END;
+
+
+-- declare
+--     v_name varchar(20); 
+-- BEGIN
+--     select first_name into v_name from hr.EMPLOYEES where EMPLOYEE_ID=102;
+--     dbms_output.put_line(v_name);
+-- END;
+
+-- declare
+--     v_name varchar(20); 
+--     v_salary hr.employees.salary%type;
+-- BEGIN
+--     select first_name into v_name from hr.EMPLOYEES where EMPLOYEE_ID=102;
+--     select salary into v_salary from hr.EMPLOYEES where EMPLOYEE_ID=102;
+--     dbms_output.put_line(v_name || '-' || v_salary);
+-- END;
+
+
+
+
+-- declare
+--     v_rec hr.employees%rowtype; 
+-- BEGIN
+--     select * into v_rec from hr.EMPLOYEES where EMPLOYEE_ID=102;
+--     dbms_output.put_line(v_rec.first_name || '-' || v_rec.hire_Date );
+-- END;
+-- -- type v_rec is record(
+-- --     EMPLOYEE_ID int
+-- --     first_name varchar(100)
+-- --     last_name varchar(100)
+-- -- )
+
+
+
+
