@@ -1,0 +1,144 @@
+-- declare 
+--    var1 int := 4;
+--    v_factor int := 0;
+
+-- BEGIN
+--     for i  in 1..var1 loop
+--        dbms_output.put_line(i);
+--             if mod ( var1,i) = 0 then
+--             v_factor := v_factor + 1;
+--             dbms_output.put_line('factor: ' || ' ' || v_factor);
+--       end if;
+--     end loop;
+-- end;
+
+
+
+
+Implicit cursor
+
+create table emp_cp
+as select employee_id , first_name from hr.EMPLOYEES where employee_id BETWEEN 100 and 104;
+
+SELECT * from emp_cp;
+
+
+
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('We are inside the begin ');
+   update emp_cp set first_name = 'regex';
+   DBMS_OUTPUT.PUT_LINE(SQL % rowcount);
+end;
+
+
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('We are inside the begin ');
+   -- update emp_cp set first_name = 'regex';
+   delete from emp_cp  where employee_id <103;
+   DBMS_OUTPUT.PUT_LINE(SQL % rowcount);
+end;
+
+
+Explicit cursor 
+
+DECLARE
+    cursor emp_cur is SELECT * from emp_cp;
+    emp_record emp_cp%rowtype; -- record variable as same as of the table 
+
+BEGIN 
+    open emp_cur; -- cursor open
+    -- fetch emp_cur into emp_record;
+
+    if emp_cur%isopen then -- is open then TRUE otherwise false 
+        DBMS_OUTPUT.PUT_LINE(' cursor open');
+    -- elif (emp_cur%notfound) then
+    --     DBMS_OUTPUT.PUT_LINE('Cursor not found ' )
+    end if;
+    close emp_cur; -- cursor close
+end;
+
+
+
+
+DECLARE
+    cursor emp_cur is SELECT * from emp_cp;
+    emp_record emp_cp%rowtype; -- record variable as same as of the table 
+
+BEGIN 
+    open emp_cur; -- cursor open
+    fetch emp_cur into emp_record;
+
+    if emp_cur%isopen then -- is open then TRUE otherwise false 
+        DBMS_OUTPUT.PUT_LINE(' cursor open');
+    -- elif (emp_cur%notfound) then
+    --     DBMS_OUTPUT.PUT_LINE('Cursor not found ' )
+    end if;
+
+    if emp_cur%found THEN
+       DBMS_OUTPUT.PUT_LINE(' cursor got the data');
+    else 
+       DBMS_OUTPUT.PUT_LINE(' cursor dont found the data');
+    end if;
+    close emp_cur; -- cursor close
+end;
+
+
+
+
+DECLARE
+    cursor emp_cur is SELECT * from emp_cp;
+    emp_record emp_cp%rowtype; -- record variable as same as of the table 
+
+BEGIN 
+    open emp_cur; -- cursor open
+    fetch emp_cur into emp_record;
+
+    -- if emp_cur%isopen then -- is open then TRUE otherwise false 
+    --     DBMS_OUTPUT.PUT_LINE(' cursor open');
+    -- -- elif (emp_cur%notfound) then
+    -- --     DBMS_OUTPUT.PUT_LINE('Cursor not found ' )
+    -- end if;
+
+    if emp_cur%found THEN
+       DBMS_OUTPUT.PUT_LINE(emp_record.employee_id);
+
+    end if;
+    close emp_cur; -- cursor close
+end;
+
+
+Using WHILE LOOP
+
+DECLARE
+    cursor emp_cur is SELECT * from emp_cp;
+    emp_record emp_cp%rowtype; -- record variable as same as of the table 
+
+BEGIN 
+    open emp_cur; -- cursor open
+    fetch emp_cur into emp_record;
+
+    while emp_cur%found loop
+       DBMS_OUTPUT.PUT_LINE(emp_record.employee_id);
+       fetch emp_cur into emp_record;
+    end loop;
+    close emp_cur; -- cursor close
+end;
+
+
+
+DECLARE
+    cursor emp_cur is SELECT * from emp_cp;
+    emp_record emp_cp%rowtype; -- record variable as same as of the table 
+
+BEGIN 
+    for line in emp_cur loop
+       DBMS_OUTPUT.PUT_LINE(line.employee_id);
+    end loop;
+end;
+
+
+
+
+
